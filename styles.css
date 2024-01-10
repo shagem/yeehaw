@@ -1,0 +1,115 @@
+/* Developed by Sean Hageman - 2024 NOT FOR COMMERCIAL USE */
+
+/* Global Styles */
+
+:root {
+    --darkGrey: #222;
+    --mediumGrey: #333;
+    --vibrantPurple: #8338ec;
+    --white: #fff;
+    --black: #000;
+}
+
+* {margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-size: 1.05rem; font-weight: 300; color: var(--white);}
+
+body {background-color: var(--mediumGrey);}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--darkGrey);
+    color: var(--white);
+  }
+.navbar a {color: var(--white); text-decoration: none; font-weight: 700;}
+#burger-menu {display: none;}
+#menu-links {display: flex;}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    max-width: 80%;
+    margin: 1rem auto 0rem auto;
+    grid-template-areas: "banner banner banner banner"
+                        "sidebar mainContent mainContent ."
+                        "sidebar mainContent mainContent ."
+                        "sidebar extra extra .";
+    }
+.banner {grid-area: banner;}
+.sidebar {grid-area: sidebar;}
+.mainContent {grid-area: mainContent;}
+.extra {grid-area: extra;}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--darkGrey);
+}
+.card img {width: 100%;}
+
+
+footer {
+    background-color: var(--darkGrey);
+    color: var(--white);
+    text-align: center;
+    padding: .5rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+}
+footer p {display: inline;}
+footer p:hover {color: var(--vibrantPurple); cursor: default;}
+
+
+
+/* MQs for small devices */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        justify-content: center;
+    }
+    #menu-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--darkGrey);
+        width: 100%;
+        text-align: center;
+      }
+    #menu-links.active {
+        display: flex;
+    }
+    #burger-menu {
+        display: block;
+        text-align: center;
+        padding: .5rem;
+    }
+    #burger-menu.active {
+        color: var(--vibrantPurple);
+    }
+    .navbar a {
+        padding: .5rem 0rem;
+        border-top: 2.5px solid var(--mediumGrey);
+    }
+    .container {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        grid-template-areas: "banner"
+                        "mainContent"
+                        "mainContent"
+                        "extra";
+    }
+    .banner, .sidebar, .extra, .mainContent {display: flex; flex-direction: column; justify-content: center;}
+    .mainContent {margin: .5rem 0 0 0;}
+    .card {
+        max-width: 100%;
+        margin: .5rem 0;
+        padding: 1rem;
+
+    }
+    .banner h1 {font-weight: 500; text-align: center; font-size: 2rem; padding: 1.75rem 0 .5rem 0; background-color: var(--vibrantPurple); font-family: 'Lilita One', sans-serif;}
+}
