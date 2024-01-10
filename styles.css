@@ -4,8 +4,12 @@
 
 :root {
     --darkGrey: #222;
-    --mediumGrey: #333;
+    --mediumGrey: #444;
     --vibrantPurple: #8338ec;
+    --vibrantBlue: #139df2;
+    --vibrantGreen: #2bff47;
+    --vibrantRed: #ff2525;
+    --vibrantYellow: #ffff00;
     --white: #fff;
     --black: #000;
 }
@@ -55,6 +59,7 @@ body {background-color: var(--mediumGrey);}
 footer {
     background-color: var(--darkGrey);
     color: var(--white);
+    border-top: 2px solid var(--vibrantPurple);
     text-align: center;
     padding: .5rem;
     position: fixed;
@@ -86,7 +91,8 @@ footer p:hover {color: var(--vibrantPurple); cursor: default;}
     #burger-menu {
         display: block;
         text-align: center;
-        padding: .5rem;
+        padding: .1rem;
+        font-size: 1.75rem;
     }
     #burger-menu.active {
         color: var(--vibrantPurple);
@@ -103,13 +109,21 @@ footer p:hover {color: var(--vibrantPurple); cursor: default;}
                         "mainContent"
                         "extra";
     }
-    .banner, .sidebar, .extra, .mainContent {display: flex; flex-direction: column; justify-content: center;}
-    .mainContent {margin: .5rem 0 0 0;}
-    .card {
-        max-width: 100%;
-        margin: .5rem 0;
-        padding: 1rem;
-
+    .banner, .sidebar, .extra, .mainContent {
+        display: flex; flex-direction: column; justify-content: center;
     }
-    .banner h1 {font-weight: 500; text-align: center; font-size: 2rem; padding: 1.75rem 0 .5rem 0; background-color: var(--vibrantPurple); font-family: 'Lilita One', sans-serif;}
+    .mainContent {}
+    .banner {
+        background-color: var(--vibrantPurple); text-align: center; padding: 1.75rem 0 .5rem 0;
+    }
+    .banner h1 {font-size: 2rem; font-family: 'Lilita One', sans-serif;}
+    .movie-card {max-width: 100%; padding: 0rem 1rem; background-color: var(--darkGrey); margin: 0rem 0rem .5rem 0rem;}
+    #movie-title {font-weight: 700; font-size: 1.25rem; padding: .5rem 0rem;}
+    #movie-bio {font-size: .9rem; padding: .5rem 0rem;}
+    #movie-rating {padding: 0rem 0rem 0.5rem 0rem; font-weight: 700;}
+    #movie-rating-red {color: var(--vibrantRed);}
+    #movie-rating-green {color: var(--vibrantGreen);}
+    #movie-rating-yellow {color: var(--vibrantYellow);}
+    #movie-img {}
+    footer {display: none;}
 }
