@@ -124,6 +124,6 @@ footer p:hover {color: var(--vibrantPurple); cursor: default;}
     #movie-rating-red {color: var(--vibrantRed);}
     #movie-rating-green {color: var(--vibrantGreen);}
     #movie-rating-yellow {color: var(--vibrantYellow);}
-    #movie-img {}
+    #movie-img {width: 90%; margin: 0rem auto;}
     footer {display: none;}
 }

@@ -24,23 +24,32 @@ function generateCards() {
     let movieCard = document.createElement("div");
         movieCard.classList = "movie-card";
         mainContent.appendChild(movieCard);
+    //Title
     let movieTitle = document.createElement("div");
         movieTitle.id = "movie-title";
         movieCard.appendChild(movieTitle);
         movieTitle.innerHTML = fetchedArray.results[i].title;
+    //Image
     let movieImg = document.createElement("div");
         movieImg.id = "movie-img";
     let imgSource = document.createElement("img");
+        imgSource.src = "https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg";
+        imgSource.alt = "Alt Text For Image";
+        imgSource.height = 400;
+        imgSource.width = 300;
+        movieCard.appendChild(movieImg);
         movieImg.appendChild(imgSource);
+    //Overview
     let movieBio = document.createElement("div");
         movieBio.id = "movie-bio";
         movieCard.appendChild(movieBio);
         movieBio.innerHTML = fetchedArray.results[i].overview;
+    //Rating
     let movieRating = document.createElement("div");
         movieRating.id = "movie-rating";
         movieCard.appendChild(movieRating);
-        movieRating.innerHTML = fetchedArray.results[i].vote_average + " / 10";
     let ratingColor = fetchedArray.results[i].vote_average;
+        ratingColor = Math.round(ratingColor * 10) / 10;
         if (ratingColor <= 5) {
             movieRating.style.color = "var(--vibrantRed)";
         } else if (ratingColor > 5 && ratingColor <= 7) {
@@ -48,7 +57,7 @@ function generateCards() {
         } else {
             movieRating.style.color = "var(--vibrantGreen)";
         }
-    console.log(i + " " + fetchedArray.results[i].title);
+        movieRating.innerHTML = ratingColor + " / 10";
     }
 };
 
