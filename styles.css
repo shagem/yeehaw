@@ -15,44 +15,68 @@
 * {margin: 0; padding: 0; font-family: 'Roboto', sans-serif; font-size: 1.05rem; font-weight: 300; color: var(--white);}
 body {background-color: var(--mediumGrey);}
 
-
-
-/* Full Size Styles */
 /* Nav */
     .navbar {display: flex; flex-direction: row; position: fixed; width: 100%; top: 0; z-index: 1000; background-color: var(--darkGrey); color: var(--white);}
     .navbar a {color: var(--white); text-decoration: none; font-weight: 700;}
+    .navbar a:hover {color: var(--vibrantPurple);}
     #burger-menu {display: none;}
     #menu-links {display: flex;}
 
 /* Container */
-    .container {display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto; max-width: 80%; margin: auto;
+    .container {display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: auto; max-width: 100%; margin: auto;
     grid-template-areas: 
         "banner banner banner banner"
-        ". mainContent mainContent ."
-        ". mainContent mainContent ."
-        ". extra extra .";
+        "search search search search"
+        ". mainContent mainContent mainContent"
+        ". extra extra extra";
     }
 /* Banner */
-    .banner {grid-area: banner;}
+    .banner {grid-area: banner; background-color: var(--vibrantPurple); text-align: center; padding: 2.7rem 0 .5rem 0;}
+    .banner h1 {font-size: 2rem; font-family: 'Lilita One', sans-serif;}
 
 /* Search Bar */
-    .search {grid-area: search;}
+    .search {grid-area: search; display: flex; background-color: var(--darkGrey); padding: 1rem 0 1rem 0; flex-direction: row; justify-content: space-evenly;}
+    #search-bar, #search-btn {border: 1.5px solid var(--white); background-color: var(--mediumGrey); border-radius: 15px;}
+    #search-bar {width: 70%; padding: 1rem .5rem;}
+    #search-btn {width: 20%; padding: 1rem 0;}
+    #search-btn:hover {background-color: var(--vibrantPurple);}
 
 /* Main Content */
-    .mainContent {grid-area: mainContent;}
+    .mainContent {grid-area: mainContent; background-color: var(--darkGrey);}
+    .card {background-color: var(--darkGrey); max-width: 100%; padding: 1rem 1rem; border-bottom: 0.5rem solid var(--mediumGrey);}
+    #title {font-weight: 700; font-size: 1.25rem; padding: .5rem 0;}
+    #overview {font-size: .9rem; padding: 0 0 .5rem 0;}
+    #rating {font-weight: 700;}
+    .rating-red {color: var(--vibrantRed);}
+    .rating-green {color: var(--vibrantGreen);}
+    .rating-yellow {color: var(--vibrantYellow);}
+    #card-img {max-width: 80%;}
+    #img-wrapper {justify-content: center; display: flex;}
 
 /* Extra */
     .extra {grid-area: extra;}
 
 /* Footer */
-    footer {background-color: var(--darkGrey); color: var(--white); border-top: 2px solid var(--vibrantPurple); text-align: center; padding: .5rem; position: fixed; bottom: 0; width: 100%; z-index: 999;}
+    footer {background-color: var(--darkGrey); color: var(--white); border-top: 2px solid var(--vibrantPurple); text-align: center; padding: .5rem; position: fixed; bottom: 0; width: 100%; z-index: 999; display: none;}
     footer p {display: inline;}
     footer p:hover {color: var(--vibrantPurple); cursor: default;}
 
 
+/* MQs for Large Devices */
+@media (min-width: 950px) {
+    .navbar {padding: 1rem;}
+    .navbar a {margin: 0 .5rem;}
+    .container {}
+    .banner {padding: 3.5rem 0 0.5rem 0;}
+    .mainContent {}
+    .card {padding: 1rem 12rem; text-align: center;}
+    .extra {}
+    
+}
 
-/* MQs for small devices */
-@media (max-width: 600px) {
+
+/* MQs for Small Devices */
+@media (max-width: 949px) {
     
 /* Nav */
     .navbar {flex-direction: column; justify-content: center;}
@@ -72,30 +96,7 @@ body {background-color: var(--mediumGrey);}
             "mainContent"
             "extra";
     }
-    .banner, .extra, .mainContent, .search {display: flex; flex-direction: column; justify-content: center;}
-    
-/* Banner */
-    .banner {background-color: var(--vibrantPurple); text-align: center; padding: 2.7rem 0 .5rem 0;}
-    .banner h1 {font-size: 2rem; font-family: 'Lilita One', sans-serif;}
-
-/* Search Bar */
-    .search {flex-direction: row; justify-content: space-evenly; background-color: var(--darkGrey); padding: 1rem 0 1rem 0;}
-    #search-bar, #search-btn {border: 1.5px solid var(--white); padding: 1rem 0; background-color: var(--mediumGrey); border-radius: 15px;}
-    #search-bar {width: 70%; padding: 0 .5rem;}
-    #search-btn {width: 20%;}
-    #search-btn:hover {background-color: var(--vibrantPurple);}
-    
-/* Main Content */
-    .mainContent {background-color: var(--darkGrey);}
-    .card {max-width: 100%; padding: 1rem 1rem; background-color: var(--darkGrey); border-bottom: 0.5rem solid var(--mediumGrey);}
-    #title {font-weight: 700; font-size: 1.25rem; padding: .5rem 0;}
-    #overview {font-size: .9rem; padding: 0 0 .5rem 0;}
-    #rating {font-weight: 700;}
-    .rating-red {color: var(--vibrantRed);}
-    .rating-green {color: var(--vibrantGreen);}
-    .rating-yellow {color: var(--vibrantYellow);}
-    #img-wrapper {justify-content: center; display: flex;}
-    #card-img {max-width: 80%;}
+    .banner, .extra, .mainContent {display: flex; flex-direction: column; justify-content: center;}
     
 /* Footer */
     footer {display: none;}
