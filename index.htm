@@ -13,13 +13,13 @@
 
 <body class="font-poppins bg-black text-white">
     <header class="px-6">
-        <section class="max-w-screen-xl mx-auto flex items-baseline justify-between gap-4 my-10">
-            <div class="flex items-baseline gap-4">
+        <section class="max-w-screen-xl mx-auto flex items-center justify-between gap-4 my-10">
+            <div class="flex items-center gap-2">
                 <h1 class="font-black text-5xl"><a href="#">YEEHAW</a></h1>
-                <a href="#"><img class="h-10 w-10" src="./src/imgs/movie-reel.svg"></a>
+                <a href="#"><img class="h-10 w-10" src="./src/imgs/movie-camera.svg"></a>
             </div>
             <div class="flex items-center gap-2">
-                <input class="bg-transparent py-2 px-4 rounded-full border border-white" type="text" placeholder="Search.."> 
+                <input class="bg-transparent py-2 px-4 mr-2 rounded-full border border-white" type="text" placeholder="Search.."> 
                 <span class="material-icons p-2 rounded-full hover:bg-gray-600 cursor-pointer transition-all duration-300">person</span>
                 <span class="material-icons p-2 rounded-full hover:bg-gray-600 cursor-pointer transition-all duration-300">settings</span>
             </div>
@@ -31,7 +31,6 @@
                 <a href="#" class="text-gray-400">Genre</a>
                 <a href="#" class="text-gray-400">Movies</a>
                 <a href="#" class="text-gray-400">TV Shows</a>
-                <a href="#" class="text-gray-400">A-Z</a>
             </section>
         </nav>
         <section class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 my-20 px-20 gap-20">
@@ -53,8 +52,10 @@
                 <p class="font-semibold text-xl">Trending Now</p>
             </div>
         </section>
-        <section>
-
+        <section class="max-w-screen-xl mx-auto mt-4">
+            <div id="trending-movies-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Trending movie cards will be inserted here -->
+            </div>
         </section>
         <section>
 
