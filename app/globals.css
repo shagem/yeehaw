@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.material-symbols-outlined { font-variation-settings: 'wght' 300, 'opsz' 24 }
+.material-symbols-outlined.filled { font-variation-settings: 'FILL' 1 }
+.material-symbols-outlined.thin { font-variation-settings: 'wght' 200 }
+  
+.material-symbols-outlined.md-18 { font-size: 18px; }
+.material-symbols-outlined.md-24 { font-size: 24px; }
+.material-symbols-outlined.md-32 { font-size: 32px; }
+.material-symbols-outlined.md-36 { font-size: 36px; }
+.material-symbols-outlined.md-48 { font-size: 48px; }
+.material-symbols-outlined.md-75 { font-size: 75px; }
+
+.scrollContainer {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollContainer::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
