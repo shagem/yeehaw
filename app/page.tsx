@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import PopularMovies from './components/PopularMovies';
 import PopularTV from './components/PopularTV';
+import TopRatedMovies from './components/TopRatedMovies';
+import PopularActors from './components/PopularActors';
+
 
 export const metadata: Metadata = {
   title: "Yeehaw | Entertainment Search Engine",
@@ -17,16 +20,30 @@ export default function Home() {
         <section className='max-w-screen-xl mx-auto text-white mb-10 pb-10 border-b border-zinc-700'>
           <div className='flex items-center gap-1'>
             <p className='font-semibold text-xl'>Trending Movies</p>
-            <span className="material-symbols-outlined md-24 filled text-orange-400">local_fire_department</span>
+            <span className="material-symbols-outlined md-24 text-green-400">trending_up</span>
           </div>
           <PopularMovies />
         </section>
         <section className='max-w-screen-xl mx-auto text-white mb-10 pb-10 border-b border-zinc-700'>
           <div className='flex items-center gap-1'>
             <p className='font-semibold text-xl'>Trending TV Shows</p>
-            <span className="material-symbols-outlined md-24 filled text-orange-400">local_fire_department</span>
+            <span className="material-symbols-outlined md-24 text-green-400">trending_up</span>
           </div>
           <PopularTV />
+        </section>
+        <section className='max-w-screen-xl mx-auto text-white mb-10 pb-10 border-b border-zinc-700'>
+          <div className='flex items-center gap-1'>
+            <p className='font-semibold text-xl'>Top Rated Movies</p>
+            <span className="material-symbols-outlined md-24 filled text-yellow-400">trophy</span>
+          </div>
+          <TopRatedMovies />
+        </section>
+        <section className='max-w-screen-xl mx-auto text-white'>
+          <div className='flex items-center gap-1'>
+            <p className='font-semibold text-xl'>Actors & Actresses</p>
+            <span className="material-symbols-outlined md-24 filled text-white">comedy_mask</span>
+          </div>
+          <PopularActors />
         </section>
       </main>
     </>

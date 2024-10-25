@@ -22,7 +22,7 @@ const PopularMovies = () => {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await fetch('/api/movies');
+                const response = await fetch('/api/movies/popular');
                 if (!response.ok) {
                     throw new Error('Failed to fetch movies');
                 }
@@ -113,7 +113,7 @@ const PopularMovies = () => {
                                 width={500}
                                 height={750}
                                 className="w-full h-[350px] lg:h-[400px] object-cover"
-                                priority
+                                loading="lazy"
                             />
                             <div className="p-2 lg:p-4">
                                 <p className="font-bold text-sm lg:text-lg">{movie.title}</p>
