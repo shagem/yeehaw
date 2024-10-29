@@ -65,7 +65,7 @@ const Overlay: React.FC<OverlayProps> = ({
                     className="w-[175px] max-h-[250px] object-cover mb-2 shadow-[0_3px_5px_0px_rgba(0,0,0,0.7)]"
                     loading="lazy"
                 />
-                <h2 className="font-bold text-lg">{title}</h2>
+                <p className="font-bold text-lg text-center">{title}</p>
                 {isTVShow ? (
                     <p className="text-sm">
                         Original Air Date: {releaseDate}

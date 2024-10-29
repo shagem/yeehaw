@@ -28,7 +28,19 @@ const PopularMovies = () => {
                 }
                 const data = await response.json();
                 console.log('Trending Movies:', data);
-                setMovies(data.results);
+    
+                // Filter movies that have missing properties or a vote_average of 0
+                const filteredMovies = data.results.filter((movie: Movie) =>
+                    movie.id &&
+                    movie.title &&
+                    movie.poster_path &&
+                    movie.release_date &&
+                    movie.overview &&
+                    typeof movie.vote_average === 'number' &&
+                    movie.vote_average > 0
+                );
+    
+                setMovies(filteredMovies);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -39,7 +51,7 @@ const PopularMovies = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchMovies();
     }, []);
 

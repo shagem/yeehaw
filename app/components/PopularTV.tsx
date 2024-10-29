@@ -29,7 +29,19 @@ const TrendingShows = () => {
                 }
                 const data = await response.json();
                 console.log('Trending Shows:', data);
-                setShows(data.results);
+    
+                // Filter shows that have missing properties or a vote_average of 0
+                const filteredShows = data.results.filter((show: TVShow) =>
+                    show.id &&
+                    show.name &&
+                    show.poster_path &&
+                    show.first_air_date &&
+                    show.overview &&
+                    typeof show.vote_average === 'number' &&
+                    show.vote_average > 0
+                );
+    
+                setShows(filteredShows);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -40,7 +52,7 @@ const TrendingShows = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchShows();
     }, []);
 
