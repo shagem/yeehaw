@@ -8,8 +8,9 @@ type TVShow = {
     name: string;  
     poster_path?: string;
     first_air_date?: string;
-    vote_average?: number;
     overview?: string;
+    scoreColor?: string;
+    roundedScore?: number;
 };
 
 const TrendingShows = () => {
@@ -17,7 +18,6 @@ const TrendingShows = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedShow, setSelectedShow] = useState<TVShow | null>(null);
-
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -28,20 +28,8 @@ const TrendingShows = () => {
                     throw new Error('Failed to fetch shows');
                 }
                 const data = await response.json();
-                console.log('Trending Shows:', data);
-    
-                // Filter shows that have missing properties or a vote_average of 0
-                const filteredShows = data.results.filter((show: TVShow) =>
-                    show.id &&
-                    show.name &&
-                    show.poster_path &&
-                    show.first_air_date &&
-                    show.overview &&
-                    typeof show.vote_average === 'number' &&
-                    show.vote_average > 0
-                );
-    
-                setShows(filteredShows);
+
+                setShows(data.results);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -52,7 +40,7 @@ const TrendingShows = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchShows();
     }, []);
 
@@ -75,22 +63,6 @@ const TrendingShows = () => {
         }
     };
 
-    const getScoreStyle = (score?: number) => {
-        if (score === undefined) return { color: 'white', score: 0 }; // Fallback if no score
-        const roundedScore = Math.round((score + Number.EPSILON) * 10) / 10; // Round to tenths
-        let color = '';
-
-        if (roundedScore < 4.9) {
-            color = 'text-red-300'; // Red for scores below 4.9
-        } else if (roundedScore >= 5 && roundedScore <= 7) {
-            color = 'text-yellow-300'; // Yellow for scores between 5 and 7.9
-        } else {
-            color = 'text-green-500'; // Green for scores between 8 and 10
-        }
-
-        return { color, score: roundedScore };
-    };
-
     const handleShowClick = (show: TVShow) => {
         setSelectedShow(show);
     };
@@ -101,10 +73,7 @@ const TrendingShows = () => {
 
     return (
         <div className="relative my-4">
-            <div
-                ref={scrollRef}
-                className="flex overflow-x-scroll space-x-4 scrollContainer"
-            >
+            <div ref={scrollRef} className="flex overflow-x-scroll space-x-4 scrollContainer">
                 {shows.map((show) => {
                     const imageUrl = show.poster_path
                         ? `https://image.tmdb.org/t/p/w500${show.poster_path}`
@@ -131,7 +100,7 @@ const TrendingShows = () => {
                             <div className="p-2 lg:p-4">
                                 <p className="font-bold text-sm lg:text-lg">{show.name}</p>
                                 <p className="text-gray-500 text-xs">Original Air Date: {formattedAirDate}</p>
-                                <p className='text-xs'>Average Score: <span className={`${getScoreStyle(show.vote_average).color}`}>{getScoreStyle(show.vote_average).score}</span></p>
+                                <p className='text-xs'>Average Score: <span className={show.scoreColor}>{show.roundedScore}</span></p>
                             </div>
                         </div>
                     );
@@ -155,10 +124,11 @@ const TrendingShows = () => {
             {/* Overlay for selected show */}
             {selectedShow && (
                 <Overlay
+                    id={selectedShow.id}
                     title={selectedShow.name}
                     posterPath={selectedShow.poster_path || ''}
                     releaseDate={new Date(selectedShow.first_air_date || '').toLocaleDateString()}
-                    score={selectedShow.vote_average}
+                    score={selectedShow.roundedScore}
                     overview={selectedShow.overview || ''}
                     onClose={closeOverlay}
                     isTVShow={true}

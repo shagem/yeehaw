@@ -23,13 +23,12 @@ const PopularActors = () => {
     useEffect(() => {
         const fetchActors = async () => {
             try {
-                const response = await fetch('/api/people');
+                const response = await fetch('/api/people?type=popular');
                 if (!response.ok) {
                     throw new Error('Failed to fetch actors');
                 }
                 const data = await response.json();
                 setActors(data.results);
-                console.log('Popular Actors:', data);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -112,12 +111,14 @@ const PopularActors = () => {
             {/* Overlay for selected actor */}
             {selectedActor && (
                 <Overlay
+                    id={selectedActor.id}
                     title={selectedActor.name}
                     posterPath={selectedActor.profile_path || ''}
                     knownFor={
                         (selectedActor.known_for?.map(item => item.title || item.name).filter(Boolean) as string[]) || []
                     }
                     onClose={closeOverlay}
+                    isActor={true}
                 />
             )}
         </div>

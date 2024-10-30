@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 type OverlayProps = {
+    id: number;
     title: string;
     posterPath: string;
     releaseDate?: string; 
@@ -10,9 +11,11 @@ type OverlayProps = {
     knownFor?: string[]; 
     onClose: () => void;
     isTVShow?: boolean;
+    isActor?: boolean;
 };
 
 const Overlay: React.FC<OverlayProps> = ({
+    id,
     title,
     posterPath,
     releaseDate,
@@ -21,30 +24,26 @@ const Overlay: React.FC<OverlayProps> = ({
     knownFor,
     onClose,
     isTVShow = false,
+    isActor = false
 }) => {
     const [show, setShow] = useState(false);
+    const [cast, setCast] = useState<any[]>([]); 
 
     useEffect(() => {
         setShow(true); // Trigger fade-in on component mount
-    }, []);
 
-    const getScoreStyle = (score?: number) => {
-        if (score === undefined) return { color: 'white' };
-        const roundedScore = Math.round((score + Number.EPSILON) * 10) / 10;
-        let color = '';
+        if (!isActor) {
+            const fetchCast = async () => {
+                const response = await fetch(`/api/people?itemId=${id}&type=cast&isTVShow=${isTVShow}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setCast(data.cast || []); // Set cast data
+                }
+            };
 
-        if (roundedScore < 4.9) {
-            color = 'text-red-300';
-        } else if (roundedScore >= 5 && roundedScore <= 7) {
-            color = 'text-yellow-300';
-        } else {
-            color = 'text-green-500';
+            fetchCast();
         }
-
-        return { color, score: roundedScore };
-    };
-
-    const { color, score: roundedScore } = getScoreStyle(score);
+    }, [id, isActor]);
 
     return (
         <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-20 ${show ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-in-out`}>
@@ -79,7 +78,9 @@ const Overlay: React.FC<OverlayProps> = ({
                 )}
                 {score !== undefined && (
                     <p className="text-sm">
-                        Average Score: <span className={`${color}`}>{roundedScore}</span>
+                        Average Score: <span className={`${score < 5 ? 'text-red-300' : score <= 7 ? 'text-yellow-300' : 'text-green-500'}`}>
+                            {Math.round((score + Number.EPSILON) * 10) / 10}
+                        </span>
                     </p>
                 )}
                 <div className='text-sm mt-2'>
@@ -98,6 +99,16 @@ const Overlay: React.FC<OverlayProps> = ({
                         <ul className="list-disc w-full flex flex-col items-center">
                             {knownFor.map((item, index) => (
                                 <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                {cast.length > 0 && (
+                    <div className="mt-2 w-full max-w-[320px] text-sm">
+                        <p className='italic w-full text-center'>Cast:</p>
+                        <ul className="list-disc w-full flex flex-col items-center">
+                            {cast.slice(0, 10).map((actor) => (
+                                <li key={actor.id}>{actor.name}</li>
                             ))}
                         </ul>
                     </div>

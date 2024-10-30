@@ -10,24 +10,25 @@ type Movie = {
     release_date?: string;
     vote_average?: number;
     overview?: string;
+    roundedScore?: number;
+    scoreColor?: string;
 };
 
 const TopRatedMovies = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null); // State for the selected movie
+    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await fetch('/api/movies/top-rated'); // Adjusted endpoint for top-rated movies
+                const response = await fetch('/api/movies?type=top_rated');
                 if (!response.ok) {
                     throw new Error('Failed to fetch top-rated movies');
                 }
                 const data = await response.json();
-                console.log('Top Rated Movies:', data);
                 setMovies(data.results);
             } catch (error: unknown) {
                 if (error instanceof Error) {
@@ -42,22 +43,6 @@ const TopRatedMovies = () => {
 
         fetchMovies();
     }, []);
-
-    const getScoreStyle = (score?: number) => {
-        if (score === undefined) return { color: 'white', score: 0 };
-        const roundedScore = Math.round((score + Number.EPSILON) * 10) / 10;
-        let color = '';
-
-        if (roundedScore < 4.9) {
-            color = 'text-red-300';
-        } else if (roundedScore >= 5 && roundedScore <= 7) {
-            color = 'text-yellow-300';
-        } else {
-            color = 'text-green-500';
-        }
-
-        return { color, score: roundedScore };
-    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -118,7 +103,9 @@ const TopRatedMovies = () => {
                             <div className="p-2 lg:p-4">
                                 <p className="font-bold text-sm lg:text-lg">{movie.title}</p>
                                 <p className="text-gray-500 text-xs">Release Date: {formattedReleaseDate}</p>
-                                <p className="text-xs">Average Score: <span className={`${getScoreStyle(movie.vote_average).color}`}>{getScoreStyle(movie.vote_average).score}</span></p>
+                                <p className="text-xs">
+                                    Average Score: <span className={`${movie.scoreColor}`}>{movie.roundedScore}</span>
+                                </p>
                             </div>
                         </div>
                     );
@@ -148,6 +135,8 @@ const TopRatedMovies = () => {
                     score={selectedMovie.vote_average}
                     overview={selectedMovie.overview || ''}
                     onClose={closeOverlay}
+                    id={selectedMovie.id}
+                    isTVShow={false}
                 />
             )}
         </div>

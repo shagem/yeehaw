@@ -10,37 +10,26 @@ type Movie = {
     release_date?: string;
     vote_average?: number;
     overview?: string;
+    roundedScore?: number;
+    scoreColor?: string;
 };
 
 const PopularMovies = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null); // State for the selected movie
+    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-                const response = await fetch('/api/movies/popular');
+                const response = await fetch('/api/movies?type=popular');
                 if (!response.ok) {
                     throw new Error('Failed to fetch movies');
                 }
                 const data = await response.json();
-                console.log('Trending Movies:', data);
-    
-                // Filter movies that have missing properties or a vote_average of 0
-                const filteredMovies = data.results.filter((movie: Movie) =>
-                    movie.id &&
-                    movie.title &&
-                    movie.poster_path &&
-                    movie.release_date &&
-                    movie.overview &&
-                    typeof movie.vote_average === 'number' &&
-                    movie.vote_average > 0
-                );
-    
-                setMovies(filteredMovies);
+                setMovies(data.results);
             } catch (error: unknown) {
                 if (error instanceof Error) {
                     setError(error.message);
@@ -51,25 +40,9 @@ const PopularMovies = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchMovies();
     }, []);
-
-    const getScoreStyle = (score?: number) => {
-        if (score === undefined) return { color: 'white', score: 0 }; // Fallback if no score
-        const roundedScore = Math.round((score + Number.EPSILON) * 10) / 10; // Round to tenths
-        let color = '';
-
-        if (roundedScore < 4.9) {
-            color = 'text-red-300'; // Red for scores below 4.9
-        } else if (roundedScore >= 5 && roundedScore <= 7) {
-            color = 'text-yellow-300'; // Yellow for scores between 5 and 7.9
-        } else {
-            color = 'text-green-500'; // Green for scores between 8 and 10
-        }
-
-        return { color, score: roundedScore };
-    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -130,7 +103,9 @@ const PopularMovies = () => {
                             <div className="p-2 lg:p-4">
                                 <p className="font-bold text-sm lg:text-lg">{movie.title}</p>
                                 <p className="text-gray-500 text-xs">Release Date: {formattedReleaseDate}</p>
-                                <p className='text-xs'>Average Score: <span className={`${getScoreStyle(movie.vote_average).color}`}>{getScoreStyle(movie.vote_average).score}</span></p>
+                                <p className='text-xs'>
+                                    Average Score: <span className={`${movie.scoreColor}`}>{movie.roundedScore}</span>
+                                </p>
                             </div>
                         </div>
                     );
@@ -160,6 +135,8 @@ const PopularMovies = () => {
                     score={selectedMovie.vote_average}
                     overview={selectedMovie.overview || ''}
                     onClose={closeOverlay}
+                    id={selectedMovie.id}
+                    isTVShow={false}
                 />
             )}
         </div>
