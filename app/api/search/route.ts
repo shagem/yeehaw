@@ -7,6 +7,7 @@ type SearchItem = {
     vote_average?: number;
     release_date?: string;
     first_air_date?: string;
+    overview?: string;
     type: 'movie' | 'tv';
     scoreColor?: string;
     roundedScore?: number;
@@ -58,12 +59,14 @@ export async function GET(request: Request) {
                 vote_average: item.vote_average,
                 release_date: item.release_date,
                 first_air_date: item.first_air_date,
+                overview: item.overview,
                 type: item.media_type === 'movie' ? 'movie' : 'tv',
                 scoreColor: color,
                 roundedScore: score 
             };
+            
         });
-
+        console.log(results)
         return NextResponse.json({ results, page: data.page, total_pages: data.total_pages });
     } catch (error) {
         console.error('Error fetching data:', error);

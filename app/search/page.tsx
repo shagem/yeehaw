@@ -10,6 +10,7 @@ type SearchItem = {
     vote_average?: number;
     release_date?: string;
     first_air_date?: string;
+    overview?: string;
     type: 'movie' | 'tv'; 
     scoreColor?: string;
     roundedScore?: number;
@@ -76,7 +77,8 @@ const SearchPage = ({ searchParams }: { searchParams: { query: string } }) => {
                         .filter(searchItem => 
                             searchItem.poster_path && 
                             searchItem.title && 
-                            (searchItem.release_date || searchItem.first_air_date) && 
+                            (searchItem.release_date || searchItem.first_air_date) &&
+                            searchItem.overview && 
                             searchItem.vote_average !== undefined && 
                             searchItem.vote_average !== 0
                         )
@@ -136,6 +138,7 @@ const SearchPage = ({ searchParams }: { searchParams: { query: string } }) => {
                                     ? new Date(selectedItem.first_air_date).toLocaleDateString()
                                     : 'Date not available'
                         }
+                        overview={selectedItem.overview}
                         score={selectedItem.vote_average}
                         onClose={() => setSelectedItem(null)}
                         isTVShow={selectedItem.type === 'tv'}
