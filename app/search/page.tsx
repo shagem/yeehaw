@@ -71,7 +71,7 @@ const SearchPage = ({ searchParams }: { searchParams: { query: string } }) => {
         <main className="text-white px-6">
             <section className="max-w-screen-xl mx-auto">
                 <p className="font-semibold text-xl my-4">Search Results for &quot;{searchParams.query}&quot;</p>
-                <div className="flex flex-wrap gap-y-16 gap-x-6 justify-center">
+                <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap">
                 {results.length > 0 ? (
                     results
                         .filter(searchItem => 
@@ -92,21 +92,19 @@ const SearchPage = ({ searchParams }: { searchParams: { query: string } }) => {
                                 : 'Air date not available';
 
                             return (
-                                <div 
-                                    key={searchItem.id} 
-                                    className="flex flex-col items-center border border-zinc-700 rounded max-w-[400px] hover:bg-zinc-800 transition duration-300 cursor-pointer lg:w-[300px]"
-                                    onClick={() => setSelectedItem(searchItem)}
-                                >
+                                    <div key={searchItem.id} 
+                                    className="w-full md:w-[300px] flex flex-col items-center border border-zinc-700 rounded hover:bg-zinc-800 transition duration-300 cursor-pointer"
+                                    onClick={() => setSelectedItem(searchItem)}>
                                     <Image
                                         src={`https://image.tmdb.org/t/p/w500${searchItem.poster_path}`}
                                         alt={searchItem.title || 'No title available'}
                                         width={500}
                                         height={750}
-                                        className="w-full h-[350px] lg:h-[400px] object-cover"
+                                        className="w-full h-full lg:h-[400px] object-cover"
                                         loading="lazy"
                                     />
                                     <div className="text-sm p-4 min-w-full">
-                                        <p className="font-bold text-xl">{searchItem.title}</p>
+                                        <p className="font-bold text-xs md:text-lg lg:text-xl">{searchItem.title}</p>
                                         {searchItem.release_date && (
                                             <p className="text-xs text-gray-500">Release Date: {formattedReleaseDate}</p>
                                         )}

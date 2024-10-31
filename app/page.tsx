@@ -41,7 +41,7 @@ export default function Home() {
         <section className='max-w-screen-xl mx-auto text-white'>
           <div className='flex items-center gap-1'>
             <p className='font-semibold text-xl'>Actors & Actresses</p>
-            <span className="material-symbols-outlined md-24 filled text-white">comedy_mask</span>
+            <span className="material-symbols-outlined md-24 filled text-purple-500">comedy_mask</span>
           </div>
           <PopularActors />
         </section>

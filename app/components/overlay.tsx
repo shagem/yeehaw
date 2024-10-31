@@ -56,8 +56,8 @@ const Overlay: React.FC<OverlayProps> = ({
     }, [id, isActor]);
 
     return (
-        <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-20 ${show ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-in-out`}>
-            <div className="flex flex-col justify-center items-center bg-zinc-800 border border-zinc-700 m-4 p-4 md:p-8 rounded relative lg:max-w-screen-md max-h-full overflow-y-auto">
+        <div className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-20 ${show ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 ease-in-out py-2`}>
+            <div className="flex flex-col justify-center items-center bg-zinc-900 border border-zinc-700 m-4 px-4 py-8 md:p-8 rounded-lg relative w-full h-full lg:w-[1000px] lg:h-[800px] overflow-y-auto">
                 <button
                     onClick={() => {
                         setShow(false);
@@ -93,7 +93,7 @@ const Overlay: React.FC<OverlayProps> = ({
                             </p>
                         )}
                     </section>
-                    <section className='text-sm'>
+                    <section className='text-sm lg:max-w-[600px] px-4'>
                         {overview && (
                             <p>
                                 &quot;{overview || 'No summary available.'}&quot;
@@ -111,11 +111,11 @@ const Overlay: React.FC<OverlayProps> = ({
                     </section>
                     )}
                     {cast.length > 0 && (
-                    <section className="w-full text-sm my-2">
+                    <section className="w-full text-sm my-2 px-4">
                         <p className='italic mb-4'>Featuring:</p>
-                        <ul className="list-none w-full grid grid-cols-2 md:flex md:flex-wrap md:items-center md:justify-evenly gap-y-8 gap-x-4">
+                        <ul className="list-none w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-y-4 md:gap-y-8 gap-x-4">
                             {cast.slice(0, 10).map((actor) => (
-                                <li key={actor.id} className='flex flex-col items-center justify-between gap-2 text-center max-sm:text-xs border border-zinc-600 rounded-lg p-2'>
+                                <li key={actor.id} className='flex flex-col items-center justify-between gap-2 text-center max-sm:text-xs bg-zinc-800 rounded-lg p-2'>
                                     <p>{actor.character}</p>
                                     <Image
                                     src={actor.profile_path
@@ -125,7 +125,7 @@ const Overlay: React.FC<OverlayProps> = ({
                                     alt='Actor Profile Picture'
                                     height={50}
                                     width={50}
-                                    className='rounded-full bg-white min-h-[50px]'
+                                    className='rounded-full bg-white min-h-[50px] w-auto'
                                     />
                                     <p className='font-bold'>{actor.name}</p>
                                 </li>

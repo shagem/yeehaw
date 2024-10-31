@@ -51,6 +51,7 @@ const Navbar = () => {
                         width={100}
                         height={100}
                         className='h-8 w-8 md:h-12 md:w-12'
+                        priority
                     />
                 </Link>
 

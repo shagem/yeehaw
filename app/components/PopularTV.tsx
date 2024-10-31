@@ -110,15 +110,15 @@ const TrendingShows = () => {
             {/* Left scroll button */}
             <button
                 onClick={() => handleScroll('left')}
-                className="absolute top-1/2 transform -translate-y-1/2 -left-3 z-10 h-full w-10 flex items-center justify-center bg-gradient-to-r from-zinc-950 to-translucent">
-                <span className="material-symbols-outlined">arrow_back_ios</span>
+                className="absolute top-1/2 transform -translate-y-1/2 -left-3 z-10 h-full w-10 group flex items-center justify-center bg-gradient-to-r from-zinc-950 to-translucent">
+                <span className="material-symbols-outlined group-hover:scale-[1.5] transition duration-200">arrow_back_ios</span>
             </button>
 
             {/* Right scroll button */}
             <button
                 onClick={() => handleScroll('right')}
-                className="absolute top-1/2 transform -translate-y-1/2 -right-3 z-10 h-full w-10 flex items-center justify-center bg-gradient-to-l from-zinc-950 to-translucent">
-                <span className="material-symbols-outlined">arrow_forward_ios</span>
+                className="absolute top-1/2 transform -translate-y-1/2 -right-3 z-10 h-full w-10 group flex items-center justify-center bg-gradient-to-l from-zinc-950 to-translucent">
+                <span className="material-symbols-outlined group-hover:scale-[1.5] transition duration-200">arrow_forward_ios</span>
             </button>
 
             {/* Overlay for selected show */}
